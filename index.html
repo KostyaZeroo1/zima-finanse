@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Мои Финансы • Зимняя версия 2025</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: #e0f7fa;
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+    }
+    /* Падающий снег */
+    .snow { 
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10;
+        background: transparent;
+    }
+    /* Мерцающие гирлянды */
+    .garland {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background: repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 40px,
+            #ff0000 40px,
+            #00ff00 45px,
+            #0000ff 50px,
+            #ffff00 55px,
+            transparent 60px
+        );
+        background-size: 200% 100%;
+        animation: garland 15s linear infinite;
+        opacity: 0.7;
+        z-index: 9;
+    }
+    @keyframes garland {
+        0% { background-position: 0 0; }
+        100% { background-position: 200% 0; }
+    }
+    .garland::before, .garland::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 10px;
+        background: #0d1b2a;
+    }
+    .garland::before { top: -5px; }
+    .garland::after { bottom: -5px; }
+
+    header {
+        text-align: center;
+        padding: 60px 20px 30px;
+        background: rgba(0,0,0,0.4);
+        position: relative;
+        z-index: 11;
+    }
+    h1 {
+        font-size: 3.5rem;
+        text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+        margin-bottom: 10px;
+    }
+    nav {
+        background: rgba(0,0,0,0.5);
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+    }
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 20px;
+        font-size: 1.2rem;
+        padding: 10px 15px;
+        border-radius: 10px;
+        transition: all 0.3s;
+    }
+    nav a:hover { background: #00ffff; color: #000; }
+
+    .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 11;
+    }
+    .card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+    input, button, select {
+        padding: 12px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+    }
+    input, select { background: rgba(255,255,255,0.2); color: white; }
+    input::placeholder { color: #bbdefb; }
+    button {
+        background: #00ffff;
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    button:hover { background: #00bfff; transform: scale(1.05); }
+
+    .goal {
+        text-align: center;
+        font-size: 1.8rem;
+        margin: 30px 0;
+    }
+    .progress-container {
+        width: 100%;
+        background: rgba(0,0,0,0.3);
+        height: 40px;
+        border-radius: 20px;
+        overflow: hidden;
+        margin: 20px 0;
+    }
+    .progress {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #00ff00, #00ffff);
+        transition: width 1s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000;
+        font-weight: bold;
+        font-size: 1.3rem;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    th { background: rgba(0,255,255,0.2); }
+    .delete-btn {
+        background: #ff0040;
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+    footer {
+        text-align: center;
+        padding: 40px;
+        color: #888;
+        font-size: 0.9rem;
+    }
+</style>
+</head>
+<body>
+
+<div class="garland"></div>
+<div class="snow"></div>
+
+<header>
+    <h1>❄️ Мои Финансы 2025 ❄️</h1>
+    <p>Учёт доходов и расходов • Зимняя сказка</p>
+</header>
+
+<nav>
+    <a href="#home" onclick="showPage('home')">Главная</a>
+    <a href="#income" onclick="showPage('income')">Доходы</a>
+    <a href="#expense" onclick="showPage('expense')">Расходы</a>
+    <a href="#goal" onclick="showPage('goal')">Цель</a>
+    <a href="#stats" onclick="showPage('stats')">Статистика</a>
+</nav>
+
+<div class="container">
+
+    <!-- Главная -->
+    <div id="home" class="page">
+        <div class="card">
+            <h2>Добро пожаловать в зимний трекер финансов!</h2>
+            <div class="goal" id="mainGoal">Цель не установлена</div>
+            <div class="progress-container"><div class="progress" id="mainProgress">0%</div></div>
+            <p style="text-align:center; margin-top:20px;">
+                Баланс: <b id="balance">0 ₽</b><br>
+                Отложено: <b id="saved">0 ₽</b>
+            </p>
+        </div>
+    </div>
+
+    <!-- Доходы -->
+    <div id="income" class="page" style="display:none">
+        <div class="card">
+            <h2>💰 Добавить доход</h2>
+            <input type="text" id="incomeDesc" placeholder="Описание (зарплата, фриланс...)">
+            <input type="number" id="incomeAmount" placeholder="Сумма">
+            <button onclick="addIncome()">Добавить доход</button>
+
+            <h3 style="margin-top:30px">Последние доходы</h3>
+            <table id="incomeTable"><tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr></table>
+        </div>
+    </div>
+
+    <!-- Расходы -->
+    <div id="expense" class="page" style="display:none">
+        <div class="card">
+            <h2>🛒 Добавить расход</h2>
+            <input type="text" id="expenseDesc" placeholder="На что потратили?">
+            <input type="number" id="expenseAmount" placeholder="Сумма">
+            <button onclick="addExpense()">Добавить расход</button>
+
+            <h3 style="margin-top:30px">Последние расходы</h3>
+            <table id="expenseTable"><tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr></table>
+        </div>
+    </div>
+
+    <!-- Цель -->
+    <div id="goal" class="page" style="display:none">
+        <div class="card">
+            <h2>🎯 Финансовая цель</h2>
+            <input type="text" id="goalName" placeholder="Название цели (новый айфон, отпуск...)">
+            <input type="number" id="goalAmount" placeholder="Сколько нужно собрать">
+            <button onclick="setGoal()">Установить цель</button>
+
+            <div class="goal" id="goalText">Цель не установлена</div>
+            <div class="progress-container"><div class="progress" id="goalProgress">0%</div></div>
+            <p style="text-align:center; font-size:1.5rem; margin:20px 0;">
+                Отложено: <b id="goalSaved">0 ₽</b> из <b id="goalTotal">0 ₽</b><br>
+                Осталось: <b id="goalLeft">0 ₽</b>
+            </p>
+            <button onclick="addToSavings()" style="background:#00ff80">Отложить с баланса</button>
+            <input type="number" id="saveAmount" placeholder="Сколько отложить?" style="width:200px; display:inline-block;">
+        </div>
+    </div>
+
+    <!-- Статистика -->
+    <div id="stats" class="page" style="display:none">
+        <div class="card">
+            <h2>📊 Статистика</h2>
+            <p>Всего доходов: <b id="totalIncome">0 ₽</b></p>
+            <p>Всего расходов: <b id="totalExpense">0 ₽</b></p>
+            <p>Чистый баланс: <b id="netBalance">0 ₽</b></p>
+            <p>Отложено на цель: <b id="totalSaved">0 ₽</b></p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    © 2025 Зимний финансовый трекер • С любовью и снегом ❄️
+</footer>
+
+<script>
+// === Падающий снег ===
+function createSnowflake() {
+    const snowflake = document.createElement('div');
+    snowflake.style.position = 'absolute';
+    snowflake.style.width = Math.random() * 6 + 'px';
+    snowflake.style.height = snowflake.style.width;
+    snowflake.style.background = 'white';
+    snowflake.style.borderRadius = '50%';
+    snowflake.style.opacity = Math.random() * 0.8 + 0.2;
+    snowflake.style.pointerEvents = 'none';
+    snowflake.style.left = Math.random() * 100 + 'vw';
+    snowflake.style.top = '-10px';
+    snowflake.style.animation = `fall ${Math.random() * 10 + 10}s linear forwards`;
+    document.querySelector('.snow').appendChild(snowflake);
+
+    setTimeout(() => snowflake.remove(), 20000);
+}
+setInterval(createSnowflake, 100);
+
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes fall {
+    to { transform: translateY(100vh) rotate(720deg); }
+}`;
+document.head.appendChild(style);
+
+// === Хранение данных ===
+let data = {
+    incomes: [],
+    expenses: [],
+    goal: { name: "", amount: 0 },
+    saved: 0
+};
+
+if (localStorage.getItem("financeData")) {
+    data = JSON.parse(localStorage.getItem("financeData"));
+}
+
+// === Основные функции ===
+function saveData() {
+    localStorage.setItem("financeData", JSON.stringify(data));
+    updateAll();
+}
+
+function updateAll() {
+    const totalIncome = data.incomes.reduce((s, i) => s + i.amount, 0);
+    const totalExpense = data.expenses.reduce((s, e) => s + e.amount, 0);
+    const balance = totalIncome - totalExpense;
+    const saved = data.saved;
+    const goal = data.goal.amount;
+    const progress = goal > 0 ? (saved / goal) * 100 : 0;
+
+    // Главная страница
+    document.getElementById("balance").textContent = balance.toLocaleString() + " ₽";
+    document.getElementById("saved").textContent = saved.toLocaleString() + " ₽";
+    document.getElementById("mainGoal").textContent = data.goal.name || "Цель не установлена";
+    document.getElementById("mainProgress").style.width = progress + "%";
+    document.getElementById("mainProgress").textContent = progress.toFixed(1) + "%";
+
+    // Цель
+    document.getElementById("goalText").textContent = data.goal.name ? `${data.goal.name} — ${goal.toLocaleString()} ₽` : "Цель не установлена";
+    document.getElementById("goalSaved").textContent = saved.toLocaleString() + " ₽";
+    document.getElementById("goalTotal").textContent = goal.toLocaleString() + " ₽";
+    document.getElementById("goalLeft").textContent = (goal - saved > 0 ? goal - saved : 0).toLocaleString() + " ₽";
+    document.getElementById("goalProgress").style.width = progress + "%";
+    document.getElementById("goalProgress").textContent = progress.toFixed(1) + "%";
+
+    // Статистика
+    document.getElementById("totalIncome").textContent = totalIncome.toLocaleString() + " ₽";
+    document.getElementById("totalExpense").textContent = totalExpense.toLocaleString() + " ₽";
+    document.getElementById("netBalance").textContent = balance.toLocaleString() + " ₽";
+    document.getElementById("totalSaved").textContent = saved.toLocaleString() + " ₽";
+
+    // Таблицы
+    renderTable("incomeTable", data.incomes, true);
+    renderTable("expenseTable", data.expenses, false);
+}
+
+function renderTable(id, items, isIncome) {
+    const table = document.getElementById(id);
+    table.innerHTML = `<tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr>`;
+    items.slice().reverse().forEach((item, index) => {
+        const realIndex = items.length - 1 - index;
+        const row = table.insertRow();
+        row.innerHTML = `
+            <td>${new Date(item.date).toLocaleDateString()}</td>
+            <td>${item.desc}</td>
+            <td>${isIncome ? "+" : "-"}${item.amount.toLocaleString()} ₽</td>
+            <td><button class="delete-btn" onclick="deleteItem(${isIncome ? 'true' : 'false'}, ${realIndex})">×</button></td>
+        `;
+    });
+}
+
+function addIncome() {
+    const desc = document.getElementById("incomeDesc").value.trim();
+    const amount = parseFloat(document.getElementById("incomeAmount").value);
+    if (!desc || isNaN(amount) || amount <= 0) return alert("Проверьте данные");
+    data.incomes.push({ desc, amount, date: new Date() });
+    document.getElementById("incomeDesc").value = "";
+    document.getElementById("incomeAmount").value = "";
+    saveData();
+}
+
+function addExpense() {
+    const desc = document.getElementById("expenseDesc").value.trim();
+    const amount = parseFloat(document.getElementById("expenseAmount").value);
+    if (!desc || isNaN(amount) || amount <= 0) return alert("Проверьте данные");
+    data.expenses.push({ desc, amount, date: new Date() });
+    document.getElementById("expenseDesc").value = "";
+    document.getElementById("expenseAmount").value = "";
+    saveData();
+}
+
+function setGoal() {
+    const name = document.getElementById("goalName").value.trim();
+    const amount = parseFloat(document.getElementById("goalAmount").value);
+    if (!name || isNaN(amount) || amount <= 0) return alert("Укажите корректную цель");
+    data.goal = { name, amount };
+    saveData();
+}
+
+function addToSavings() {
+    const amount = parseFloat(document.getElementById("saveAmount").value);
+    if (isNaN(amount) || amount <= 0) return alert("Укажите сумму");
+    const totalIncome = data.incomes.reduce((s,i)=>s+i.amount,0);
+    const totalExpense = data.expenses.reduce((s,e)=>s+e.amount,0);
+    if (totalIncome - totalExpense < amount) return alert("Недостаточно средств на балансе!");
+    data.saved += amount;
+    document.getElementById("saveAmount").value = "";
+    saveData();
+}
+
+function deleteItem(isIncome, index) {
+    if (confirm("Удалить запись?")) {
+        if (isIncome) data.incomes.splice(index, 1);
+        else data.expenses.splice(index, 1);
+        saveData();
+    }
+}
+
+function showPage(pageId) {
+    document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+    document.getElementById(pageId).style.display = "block";
+}
+
+// Инициализация
+updateAll();
+showPage("home");
+</script>
+</body>
+</html>

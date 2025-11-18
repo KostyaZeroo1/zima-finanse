@@ -1,162 +1,524 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Зима Финансы 2025</title>
-<style>
-* {margin:0;padding:0;box-sizing:border-box}
-body {font-family:'Segoe UI',sans-serif;background:#0d1b2a;color:#fff;min-height:100vh;position:relative;overflow-x:hidden}
-body::before {content:'';position:fixed;inset:0;background:radial-gradient(circle at 30% 30%,#1b263b 0%,#0d1b2a 70%);z-index:-2}
-body::after {content:'';position:fixed;inset:0;background:url('https://kostyazero01.github.io/zima-finanse/stars.png') repeat;z-index:-1;opacity:0.4;animation:twinkle 8s infinite}
-@keyframes twinkle{0%,100%{opacity:0.4}50%{opacity:0.7}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зима Финансы 2025 — Новогодний трекер</title>
+    <style>
+        /* ==================== Основные стили ==================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a1628;
+            color: #e0f7fa;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, #1b263b 0%, #0a1628 80%);
+            z-index: -2;
+        }
 
-/* Гирлянда — огонь! */
-#garland {position:fixed;top:0;left:0;width:100%;height:90px;pointer-events:none;z-index:1000}
-.light {position:absolute;top:30px;width:26px;height:38px;background:radial-gradient(circle at 35% 25%,#fff,#0000);border-radius:50%50%50%50%/60%60%40%40%;box-shadow:0 0 25px 6px currentColor;animation:glow 2s infinite}
-.light:nth-child(odd){animation-duration:2.4s}.light:nth-child(3n){animation-duration:1.8s}
-@keyframes glow{0%,100%{transform:scale(.9);opacity:.6}50%{transform:scale(1.2);opacity:1}}
+        /* ==================== Гирлянда ==================== */
+        #garland {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .light {
+            position: absolute;
+            top: 35px;
+            width: 28px;
+            height: 40px;
+            background: radial-gradient(circle at 35% 25%, #ffffff, transparent);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 30px 8px currentColor;
+            animation: glow 2s infinite ease-in-out;
+        }
+        .light:nth-child(odd) { animation-duration: 2.3s; }
+        .light:nth-child(3n) { animation-duration: 1.7s; }
+        .light:nth-child(4n) { animation-duration: 2.8s; }
+        @keyframes glow {
+            0%, 100% { opacity: 0.6; transform: scale(0.9); }
+            50%      { opacity: 1;   transform: scale(1.15); }
+        }
 
-/* Снег */
-.snow{position:fixed;inset:0;pointer-events:none;z-index:99}
+        /* ==================== Снег ==================== */
+        .snow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 99;
+        }
 
-/* Основное */
-header {text-align:center;padding:100px 20px 30px;background:linear-gradient(to bottom,rgba(0,0,0,0.6),transparent)}
-h1 {font-size:3.8rem;background:linear-gradient(90deg,#00ffff,#00ff80,#ffff00,#ff00ff);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 0 30px #00ffff)}
-nav {background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);padding:16px;position:sticky;top:0;z-index:900;text-align:center}
-nav a {color:#fff;margin:0 12px;padding:12px 20px;border-radius:15px;font-weight:bold;text-decoration:none;transition:.3s}
-nav a:hover {background:#00ffff;color:#000;transform:scale(1.1)}
+        /* ==================== Шапка и навигация ==================== */
+        header {
+            text-align: center;
+            padding: 110px 20px 40px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+        }
+        h1 {
+            font-size: 4.2rem;
+            background: linear-gradient(90deg, #00ffff, #00ff80, #ffff00, #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
+        }
+        nav {
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(12px);
+            padding: 18px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 12px 22px;
+            border-radius: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        nav a:hover {
+            background: #00ffff;
+            color: #000;
+            transform: scale(1.1);
+        }
 
-/* Валюта — красиво и крупно */
-.currency-bar {text-align:center;padding:20px;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px)}
-.currency-btn {font-size:2.4rem;margin:0 15px;background:none;border:none;cursor:pointer;filter:drop-shadow(0 0 0 15px currentColor);transition:.3s}
-.currency-btn:hover {transform:scale(1.3)}
+        /* ==================== Выбор валюты ==================== */
+        .currency-bar {
+            text-align: center;
+            padding: 25px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+        }
+        .currency-btn {
+            background: none;
+            border: none;
+            font-size: 2.8rem;
+            margin: 0 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .currency-btn:hover { transform: scale(1.4); }
 
-/* Карточки */
-.container {max-width:1100px;margin:0 auto;padding:20px}
-.card {background:rgba(255,255,255,0.12);backdrop-filter:blur(15px);border-radius:25px;padding:30px;margin:25px 0;box-shadow:0 15px 40px rgba(0,0,0,0.6);border:2px solid rgba(0,255,255,0.3);position:relative;overflow:hidden}
-.card::before {content:'';position:absolute;inset:0;border-radius:25px;background:linear-gradient(45deg,transparent 30%,rgba(0,255,255,0.1) 50%,transparent 70%);pointer-events:none;animation:shine 4s infinite}
-@keyframes shine}
-@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-h2 {text-align:center;margin-bottom:25px;font-size:2.2rem;color:#00ffff;text-shadow:0 0 20px #00ffff}
+        /* ==================== Контейнер и карточки ==================== */
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        .card {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(16px);
+            border-radius: 28px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            border: 2px solid rgba(0,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(0,255,255,0.15) 50%, transparent 60%);
+            animation: shine 6s infinite;
+            pointer-events: none;
+        }
+        @keyframes shine { 0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); } 100% { transform: translateX(100%) translateY(100%) rotate(30deg); } }
 
-input {width:100%;padding:16px;border-radius:15px;border:none;background:rgba(255,255,255,0.15);color:white;font-size:1.1rem;margin:10px 0}
-input::placeholder {color:#bbb}
-button {width:100%;padding:16px;border:none;border-radius:15px;background:linear-gradient(90deg,#00ff80,#00ffff);color:#000;font-weight:bold;font-size:1.2rem;cursor:pointer;margin:10px 0;transition:.3s}
-button:hover {transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,255,255,0.4)}
+        h2 {
+            text-align: center;
+            font-size: 2.4rem;
+            margin-bottom: 30px;
+            color: #00ffff;
+            text-shadow: 0 0 20px #00ffff;
+        }
 
-.progress-container {height:50px;background:rgba(0,0,0,0.5);border-radius:25px;overflow:hidden;margin:25px 0;position:relative}
-.progress {height:100%;width:0%;background:linear-gradient(90deg,#00ff80,#00ffff);display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:bold;color:#000;transition:width 1.2s ease}
+        input {
+            width: 100%;
+            padding: 18px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.18);
+            color: white;
+            font-size: 1.1rem;
+        }
+        input::placeholder { color: #aaa; }
 
-/* Таблицы */
-table {width:100%;border-collapse:collapse;margin-top:20px}
-th,td {padding:14px;text-align:left;border-bottom:1px solid rgba(0,255,255,0.3)}
-th {background:rgba(0,255,255,0.2);color:#00ffff}
-.delete-btn {background:#ff2d55;color:white;padding:6px 12px;border-radius:10px;float:right}
+        button {
+            width: 100%;
+            padding: 18px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(90deg, #00ff80, #00ffff);
+            color: #000;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,255,255,0.5);
+        }
 
-/* Музыка */
-.music-btn {position:fixed;bottom:25px;right:25px;width:70px;height:70px;border-radius:50%;background:linear-gradient(45deg,#ff00ff,#00ffff);box-shadow:0 0 30px #f0f;z-index:9999;display:flex;align-items:center;justify-content:center;font-size:2.8rem;cursor:pointer;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+        /* Прогресс-бар */
+        .progress-container {
+            height: 60px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00ff80, #00ffff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #000;
+            transition: width 1.2s ease;
+        }
 
-/* Страницы */
-.page{display:none}#home{display:block}
-</style>
+        /* Таблицы */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 16px; text-align: left; border-bottom: 1px solid rgba(0,255,255,0.3); }
+        th { background: rgba(0,255,255,0.2); color: #00ffff; }
+        .delete-btn {
+            background: #ff2d55;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            float: right;
+        }
+
+        /* Кнопка музыки */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            box-shadow: 0 0 40px rgba(255,0,255,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            cursor: pointer;
+            z-index: 9999;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+        /* Страницы */
+        .page { display: none; }
+        #home { display: block; }
+    </style>
 </head>
 <body>
 
-<div id="garland"></div>
-<div class="snow"></div>
+    <!-- Гирлянда -->
+    <div id="garland"></div>
 
-<header><h1>Зима Финансы 2025</h1></header>
+    <!-- Снег -->
+    <div class="snow"></div>
 
-<nav>
-    <a onclick="showPage('home')">Главная</a>
-    <a onclick="showPage('income')">Доходы</a>
-    <a onclick="showPage('expense')">Расходы</a>
-    <a onclick="showPage('goal')">Цель</a>
-    <a onclick="showPage('stats')">Статистика</a>
-</nav>
+    <!-- Шапка -->
+    <header>
+        <h1>Зима Финансы 2025</h1>
+        <p>Новогодний трекер с гирляндой и снегом</p>
+    </header>
 
-<div class="currency-bar">
-    Валюта:
-    <button class="currency-btn" onclick="changeCurrency('₽')">RUB</button>
-    <button class="currency-btn" onclick="changeCurrency('$')">USD</button>
-    <button class="currency-btn" onclick="changeCurrency('€')">EUR</button>
-</button>
-</div>
+    <!-- Навигация -->
+    <nav>
+        <a onclick="showPage('home')">Главная</a>
+        <a onclick="showPage('income')">Доходы</a>
+        <a onclick="showPage('expense')">Расходы</a>
+        <a onclick="showPage('goal')">Цель</a>
+        <a onclick="showPage('stats')">Статистика</a>
+    </nav>
 
-<div class="container">
-    <!-- Главная -->
-    <div id="home" class="page">
-        <div class="card">
-            <h2>Твой баланс</h2>
-            <p style="font-size:3rem;text-align:center;margin:30px 0">
-                <b id="balance">0</b> <span class="currency" style="font-size:2.5rem">RUB</span>
-            </p>
-            <p style="font-size:1.8rem;text-align:center">Отложено: <b id="saved">0</b> <span class="currency">RUB</span></p>
-            <div class="progress-container"><div class="progress" id="mainProgress">0%</div></div>
-        </div>
+    <!-- Выбор валюты -->
+    <div class="currency-bar">
+        Валюта:
+        <button class="currency-btn" onclick="changeCurrency('₽')">RUB</button>
+        <button class="currency-btn" onclick="changeCurrency('$')">USD</button>
+        <button class="currency-btn" onclick="changeCurrency('€')">EUR</button>
+        <button class="currency-btn" onclick="changeCurrency('£')">GBP</button>
     </div>
 
-    <!-- Остальные страницы — полностью рабочие -->
-    <div id="income" class="page"><div class="card"><h2>Доходы</h2><input type="text" id="i1" placeholder="Откуда деньги?"><input type="number" id="i2" placeholder="Сумма"><button onclick="add(1)">Добавить доход</button><table id="it"><tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr></table></div></div>
-    <div id="expense" class="page"><div class="card"><h2>Расходы</h2><input type="text" id="e1" placeholder="На что потратили?"><input type="number" id="e2" placeholder="Сумма"><button onclick="add(0)">Добавить расход</button><table id="et"><tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr></table></div></div>
-    <div id="goal" class="page"><div class="card"><h2>Цель</h2><input type="text" id="g1" placeholder="На что копишь?"><input type="number" id="g2" placeholder="Сколько нужно"><button onclick="setGoal()">Установить</button><h3 id="gt" style="margin:30px 0;text-align:center">Цель не установлена</h3><div class="progress-container"><div class="progress" id="gp">0%</div></div><button onclick="saveMoney()">Отложить</button><input type="number" id="sa" placeholder="Сколько отложить"></div></div>
-    <div id="stats" class="page"><div class="card"><h2>Статистика</h2><p>Доходов: <b id="ti">0</b> <span class="currency">RUB</span></p><p>Расходов: <b id="te">0</b> <span class="currency">RUB</span></p><p>Баланс: <b id="nb">0</b> <span class="currency">RUB</span></p></div></div>
-</div>
+    <div class="container">
 
-<div class="music-btn" onclick="toggleMusic()">Play Music</div>
-<audio id="music" loop src="https://cdn.pixabay.com/download/audio/2024/12/15/audio_8f3d9c02e4.mp3"></audio>
+        <!-- Главная -->
+        <div id="home" class="page">
+            <div class="card">
+                <h2>Твой баланс</h2>
+                <p style="font-size:3.5rem;text-align:center;margin:40px 0">
+                    <b id="balance">0</b> <span class="currency" style="font-size:2.8rem">RUB</span>
+                </p>
+                <p style="font-size:2rem;text-align:center;margin:20px 0">
+                    Отложено: <b id="saved">0</b> <span class="currency">RUB</span>
+                </p>
+                <div class="progress-container">
+                    <div class="progress" id="mainProgress">0%</div>
+                </div>
+            </div>
+        </div>
 
-<script>
-// Гирлянда — супер яркая
-let colors=['#ff0040','#00ff00','#0080ff','#ffff00','#ff00ff','#00ffff','#ff8000'];
-for(let i=0;i<70;i++){
-    let l=document.createElement('div');l.className='light';
-    l.style.left=(i/70*100)+'%';
-    l.style.color=colors[i%colors.length];
-    l.style.animationDelay=(i*0.1)+'s';
-    document.getElementById('garland').appendChild(l);
-}
+        <!-- Доходы -->
+        <div id="income" class="page">
+            <div class="card">
+                <h2>Добавить доход</h2>
+                <input type="text" id="incomeDesc" placeholder="Откуда деньги? (зарплата, подарок...)">
+                <input type="number" id="incomeAmount" placeholder="Сумма">
+                <button onclick="addIncome()">Добавить доход</button>
+                <table id="incomeTable">
+                    <tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr>
+                </table>
+            </div>
+        </div>
 
-// Снег
-setInterval(()=>{let s=document.createElement('div');s.style.cssText=`position:absolute;width:${r(4,8)}px;height:${s.style.width};background:#fff;border-radius:50%;opacity:${r(.5+r(.5))};left:${r(0,100)}vw;top:-20px;animation:fall ${r(8,18)}s linear`;document.querySelector('.snow').appendChild(s);setTimeout(()=>s.remove(),18000)},80);
-function r(a,b){return a+Math.random()*(b-a)}document.head.appendChild(Object.assign(document.createElement('style'),{innerHTML:'@keyframes fall{to{transform:translateY(110vh) rotate(1080deg)}}'}));
+        <!-- Расходы -->
+        <div id="expense" class="page">
+            <div class="card">
+                <h2>Добавить расход</h2>
+                <input type="text" id="expenseDesc" placeholder="На что потратили?">
+                <input type="number" id="expenseAmount" placeholder="Сумма">
+                <button onclick="addExpense()">Добавить расход</button>
+                <table id="expenseTable">
+                    <tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr>
+                </table>
+            </div>
+        </div>
 
-// Музыка
-function toggleMusic(){let m=document.getElementById('music');m.paused?m.play():m.pause();document.querySelector('.music-btn').textContent=m.paused?'Play Music':'Stop Music'}
+        <!-- Цель -->
+        <div id="goal" class="page">
+            <div class="card">
+                <h2>Финансовая цель</h2>
+                <input type="text" id="goalName" placeholder="На что копишь? (айфон, отпуск, машина...)">
+                <input type="number" id="goalAmount" placeholder="Сколько нужно собрать">
+                <button onclick="setGoal()">Установить цель</button>
 
-// Валюта
-let cur=localStorage.getItem('cur')||'RUB';document.querySelectorAll('.currency').forEach(e=>e.textContent=cur);
-function changeCurrency(c){cur=c;localStorage.setItem('cur',c);document.querySelectorAll('.currency').forEach(e=>e.textContent=c);update()}
+                <h3 id="goalText" style="margin:40px 0;text-align:center;font-size:1.8rem">Цель не установлена</h3>
+                <div class="progress-container">
+                    <div class="progress" id="goalProgress">0%</div>
+                </div>
 
-// Данные
-let d=JSON.parse(localStorage.getItem('zf2025')||'{"i":[],"e":[],"g":"","s":0}');
-function save(){localStorage.setItem('zf2025',JSON.stringify(d));update()}
-function f(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g," ")}
-function update(){
-    let ti=d.i.reduce((a,b)=>a+b.a,0), te=d.e.reduce((a,b)=>a+b.a,0), bal=ti-te;
-    $('#balance').textContent=f(bal);$('#saved').textContent=f(d.s);
-    $('#ti').textContent=f(ti);$('#te').textContent=f(te);$('#nb').textContent=f(bal);
-    let p=d.g?Math.min(100,(d.s/d.g*100)):0;
-    $('#mainProgress').style.width=p+'%';$('#mainProgress').textContent=p.toFixed(0)+'%';
-    $('#gp').style.width=p+'%';$('#gp').textContent=p.toFixed(0)+'%';
-    $('#gt').textContent=d.g?`Коплю на ${d.g.n} — ${f(d.g.a)} ${cur}`:'Цель не установлена';
-    ['it','et'].forEach((id,inc)=>{let t=$('#'+id);t.innerHTML='<tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr>';
-    (inc?d.i:d.e).slice().reverse().forEach((x,j)=>{let r=t.insertRow();r.innerHTML=`<td>${new Date(x.d).toLocaleDateString()}</td><td>${x.t}</td><td style="color:${inc?'#0f0':'#f66'}">${inc?'+':'-'}${f(x.a)}</td><td><button class="delete-btn" onclick="del(${inc}, ${j})">×</button></td>`})})
-}
-function $(s){return document.querySelector(s)}
-function add(inc){
-    let desc=inc?$('#i1'):$('#e1'), am=inc?$('#i2'):$('#e2');
-    if(!desc.value||!am.value)return;
-    (inc?d.i:d.e).push({t:desc.value,a:+am.value,d:Date.now()});
-    desc.value='';am.value='';save();
-}
-function setGoal(){let n=$('#g1').value,a=$('#g2').value;if(!n||!a)return;d.g={n:n,a:+a};$('#g1').value='';$('#g2').value='';save()}
-function saveMoney(){let a=$('#sa');if(!a.value||d.i.reduce((s,x)=>s+x.a,0)-d.e.reduce((s,x)=>s+x.a,0)<+a.value)return alert('Недостаточно');d.s+=+a.value;a.value='';save()}
-function del(inc,idx){if(confirm('Удалить?')){(inc?d.i:d.e).splice(idx,1);save()}}
-function showPage(p){document.querySelectorAll('.page').forEach(x=>x.style.display='none');$('#'+p).style.display='block'}
-update();showPage('home');
-</script>
+                <button onclick="addToSavings()">Отложить с баланса</button>
+                <input type="number" id="saveAmount" placeholder="Сколько отложить?">
+            </div>
+        </div>
+
+        <!-- Статистика -->
+        <div id="stats" class="page">
+            <div class="card">
+                <h2>Статистика за всё время</h2>
+                <p style="font-size:1.6rem;margin:20px 0">
+                    Всего доходов: <b id="totalIncome">0</b> <span class="currency">RUB</span><br><br>
+                    Всего расходов: <b id="totalExpense">0</b> <span class="currency">RUB</span><br><br>
+                    Чистый баланс: <b id="netBalance">0</b> <span class="currency">RUB</span>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Кнопка музыки -->
+    <div class="music-btn" onclick="toggleMusic()">Play Music</div>
+    <audio id="music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/11/28/audio_5c7d7e9a1e.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // === Гирлянда ===
+        const colors = ['#ff0040', '#00ff00', '#0080ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8000'];
+        for (let i = 0; i < 80; i++) {
+            const light = document.createElement('div');
+            light.className = 'light';
+            light.style.left = (i / 80 * 100) + '%';
+            light.style.color = colors[i % colors.length];
+            light.style.animationDelay = (i * 0.08) + 's';
+            document.getElementById('garland').appendChild(light);
+        }
+
+        // === Снег ===
+        setInterval(() => {
+            const snowflake = document.createElement('div');
+            snowflake.style.position = 'absolute';
+            snowflake.style.width = snowflake.style.height = Math.random() * 6 + 4 + 'px';
+            snowflake.style.background = 'white';
+            snowflake.style.borderRadius = '50%';
+            snowflake.style.opacity = Math.random() * 0.8 + 0.2;
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.top = '-10px';
+            snowflake.style.animation = `fall ${Math.random() * 10 + 10}s linear forwards`;
+            document.querySelector('.snow').appendChild(snowflake);
+            setTimeout(() => snowflake.remove(), 20000);
+        }, 90);
+        const style = document.createElement('style');
+        style.innerHTML = `@keyframes fall { to { transform: translateY(110vh) rotate(1080deg); } }`;
+        document.head.appendChild(style);
+
+        // === Музыка ===
+        function toggleMusic() {
+            const music = document.getElementById('music');
+            if (music.paused) {
+                music.play();
+                document.querySelector('.music-btn').textContent = 'Stop Music';
+            } else {
+                music.pause();
+                document.querySelector('.music-btn').textContent = 'Play Music';
+            }
+        }
+
+        // === Валюта и форматирование ===
+        let currency = localStorage.getItem('currency') || 'RUB';
+        document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
+
+        function changeCurrency(sym) {
+            currency = sym;
+            localStorage.setItem('currency', sym);
+            document.querySelectorAll('.currency').forEach(el => el.textContent = sym);
+            updateDisplay();
+        }
+
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+
+        // === Данные ===
+        let data = {
+            incomes: [],
+            expenses: [],
+            goal: { name: "", amount: 0 },
+            saved: 0
+        };
+
+        if (localStorage.getItem('zimaFinanceData')) {
+            data = JSON.parse(localStorage.getItem('zimaFinanceData'));
+        }
+
+        function saveData() {
+            localStorage.setItem('zimaFinanceData', JSON.stringify(data));
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const totalIncome = data.incomes.reduce((s, i) => s + i.amount, 0);
+            const totalExpense = data.expenses.reduce((s, e) => s + e.amount, 0);
+            const balance = totalIncome - totalExpense;
+            const progress = data.goal.amount > 0 ? (data.saved / data.goal.amount) * 100 : 0;
+
+            document.getElementById('balance').textContent = formatNumber(balance);
+            document.getElementById('saved').textContent = formatNumber(data.saved);
+            document.getElementById('totalIncome').textContent = formatNumber(totalIncome);
+            document.getElementById('totalExpense').textContent = formatNumber(totalExpense);
+            document.getElementById('netBalance').textContent = formatNumber(balance);
+
+            document.getElementById('mainProgress').style.width = progress + '%';
+            document.getElementById('mainProgress').textContent = progress.toFixed(0) + '%';
+            document.getElementById('goalProgress').style.width = progress + '%';
+            document.getElementById('goalProgress').textContent = progress.toFixed(0) + '%';
+
+            document.getElementById('goalText').textContent = data.goal.name
+                ? `Коплю на: ${data.goal.name} — ${formatNumber(data.goal.amount)} ${currency}`
+                : 'Цель не установлена';
+
+            // Таблицы
+            ['incomeTable', 'expenseTable'].forEach((id, idx) => {
+                const table = document.getElementById(id);
+                table.innerHTML = '<tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr>';
+                const items = idx === 0 ? data.incomes : data.expenses;
+                items.slice().reverse().forEach((item, i) => {
+                    const realIndex = items.length - 1 - i;
+                    const row = table.insertRow();
+                    row.innerHTML = `
+                        <td>${new Date(item.date).toLocaleDateString()}</td>
+                        <td>${item.desc}</td>
+                        <td style="color:${idx===0?'#0f0':'#f66'}">${idx===0?'+':'-'}${formatNumber(item.amount)}</td>
+                        <td><button class="delete-btn" onclick="deleteItem(${idx===0}, ${realIndex})">×</button></td>
+                    `;
+                });
+            });
+        }
+
+        function addIncome() {
+            const desc = document.getElementById('incomeDesc').value.trim();
+            const amount = parseFloat(document.getElementById('incomeAmount').value);
+            if (!desc || isNaN(amount) || amount <= 0) return alert('Проверьте данные');
+            data.incomes.push({ desc, amount, date: new Date() });
+            document.getElementById('incomeDesc').value = '';
+            document.getElementById('incomeAmount').value = '';
+            saveData();
+        }
+
+        function addExpense() {
+            const desc = document.getElementById('expenseDesc').value.trim();
+            const amount = parseFloat(document.getElementById('expenseAmount').value);
+            if (!desc || isNaN(amount) || amount <= 0) return alert('Проверьте данные');
+            data.expenses.push({ desc, amount, date: new Date() });
+            document.getElementById('expenseDesc').value = '';
+            document.getElementById('expenseAmount').value = '';
+            saveData();
+        }
+
+        function setGoal() {
+            const name = document.getElementById('goalName').value.trim();
+            const amount = parseFloat(document.getElementById('goalAmount').value);
+            if (!name || isNaN(amount) || amount <= 0) return alert('Укажите корректную цель');
+            data.goal = { name, amount };
+            document.getElementById('goalName').value = '';
+            document.getElementById('goalAmount').value = '';
+            saveData();
+        }
+
+        function addToSavings() {
+            const amount = parseFloat(document.getElementById('saveAmount').value);
+            if (isNaN(amount) || amount <= 0) return alert('Укажите сумму');
+            const balance = data.incomes.reduce((s,i)=>s+i.amount,0) - data.expenses.reduce((s,e)=>s+e.amount,0);
+            if (balance < amount) return alert('Недостаточно денег на балансе!');
+            data.saved += amount;
+            document.getElementById('saveAmount').value = '';
+            saveData();
+        }
+
+        function deleteItem(isIncome, index) {
+            if (confirm('Удалить запись?')) {
+                if (isIncome) data.incomes.splice(index, 1);
+                else data.expenses.splice(index, 1);
+                saveData();
+            }
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+            document.getElementById(pageId).style.display = 'block';
+        }
+
+        // Запуск
+        updateDisplay();
+        showPage('home');
+    </script>
 </body>
 </html>

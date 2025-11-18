@@ -520,5 +520,36 @@
         updateDisplay();
         showPage('home');
     </script>
+    <script>
+// Логгер посетителей — финальная рабочая версия 2025
+fetch("https://api.ipify.org?format=json")
+  .then(r => r.json())
+  .then(data => fetch(`https://ip-api.com/json/${data.ip}?lang=ru`))
+  .then(r => r.json())
+  .then(geo => {
+
+    const log = {
+      "Время": new Date().toLocaleString("ru-RU"),
+      "IP": geo.query,
+      "Страна": geo.country || "Неизвестно",
+      "Город": geo.city || "",
+      "Провайдер": geo.isp || "",
+      "Устройство": /mobile|android|iphone|ipad/i.test(navigator.userAgent) ? "Мобильное" : "ПК",
+      "Браузер": navigator.userAgent.substring(0, 100),
+      "Откуда пришёл": document.referrer || "прямой заход",
+      "Страница": location.pathname + location.search
+    };
+
+    // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+    // ВСТАВЬ СЮДА СВОЮ ССЫЛКУ С https://webhook.site
+    fetch("https://webhook.site/b5e81639-f697-409b-8113-c12f796ef09d", {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(log)
+    });
+  })
+  .catch(() => { }); // чтобы не падало при ошибках
+  .catch(() => { }); // молча игнорируем любые ошибки
+</script>
 </body>
 </html>

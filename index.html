@@ -521,7 +521,7 @@
         showPage('home');
     </script>
     <script>
-// Логгер посетителей — финальная рабочая версия 2025
+// Логгер посетителей — рабочая версия
 fetch("https://api.ipify.org?format=json")
   .then(r => r.json())
   .then(data => fetch(`https://ip-api.com/json/${data.ip}?lang=ru`))
@@ -535,21 +535,21 @@ fetch("https://api.ipify.org?format=json")
       "Город": geo.city || "",
       "Провайдер": geo.isp || "",
       "Устройство": /mobile|android|iphone|ipad/i.test(navigator.userAgent) ? "Мобильное" : "ПК",
-      "Браузер": navigator.userAgent.substring(0, 100),
+      "Браузер": navigator.userAgent.substring(0, 200),
       "Откуда пришёл": document.referrer || "прямой заход",
       "Страница": location.pathname + location.search
     };
 
-    // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-    // ВСТАВЬ СЮДА СВОЮ ССЫЛКУ С https://webhook.site
-    fetch("https://webhook.site/b5e81639-f697-409b-8113-c12f796ef09d", {
+    // ← ВСТАВЬ СВОЙ WEBHOOK SITE URL !!!
+    fetch("https://webhook.site/12acee06-2f43-4c5f-a4e9-e8f046313ef7", {
       method: "POST",
       mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(log)
     });
+
   })
-  .catch(() => { }); // чтобы не падало при ошибках
-  .catch(() => { }); // молча игнорируем любые ошибки
+  .catch(err => console.log("Logger error:", err));
 </script>
 </body>
 </html>

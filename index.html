@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои Финансы • Зима 2025</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="garland" id="garland"></div>
+    <div class="snow"></div>
+
+    <header>
+        <h1>Мои Финансы 2025</h1>
+        <p>Зимний трекер с реальными курсами ЦБ</p>
+    </header>
+
+    <nav>
+        <a href="#home"    onclick="showPage('home')">Главная</a>
+        <a href="#income"  onclick="showPage('income')">Доходы</a>
+        <a href="#expense" onclick="showPage('expense')">Расходы</a>
+        <a href="#goal"    onclick="showPage('goal')">Цель</a>
+        <a href="#stats"   onclick="showPage('stats')">Статистика</a>
+    </nav>
+
+    <!-- Выбор валюты -->
+    <div class="container">
+        <div class="card currency-selector">
+            <h3>Основная валюта (автопересчёт)</h3>
+            <p>Все суммы пересчитываются по курсу ЦБ при смене</p>
+            <div class="currency-buttons">
+                <button class="currency-btn active" data-cur="RUB">₽ RUB</button>
+                <button class="currency-btn" data-cur="USD">$ USD</button>
+                <button class="currency-btn" data-cur="EUR">€ EUR</button>
+            </div>
+            <small id="rate-info">Загрузка курсов...</small>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Главная -->
+        <div id="home" class="page">
+            <div class="card">
+                <h2>Добро пожаловать!</h2>
+                <div class="goal" id="mainGoal">Цель не установлена</div>
+                <div class="progress-container"><div class="progress" id="mainProgress">0%</div></div>
+                <p style="text-align:center;font-size:1.8rem;margin:30px 0;">
+                    Баланс: <b id="balance">0</b> <span id="currencySymbol">₽</span><br><br>
+                    Отложено: <b id="saved">0</b> <span id="currencySymbol2">₽</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Доходы -->
+        <div id="income" class="page">
+            <div class="card">
+                <h2>Добавить доход</h2>
+                <input type="text" id="incomeDesc" placeholder="Источник (зарплата, фриланс...)">
+                <input type="number" id="incomeAmount" placeholder="Сумма" step="0.01">
+                <button onclick="addIncome()">+ Добавить доход</button>
+                <h3 style="margin-top:30px">История доходов</h3>
+                <table id="incomeTable"><tr><th>Описание</th><th>Сумма</th><th></th></tr></table>
+            </div>
+        </div>
+
+        <!-- Расходы -->
+        <div id="expense" class="page">
+            <div class="card">
+                <h2>Добавить расход</h2>
+                <input type="text" id="expenseDesc" placeholder="На что потратили">
+                <input type="number" id="expenseAmount" placeholder="Сумма" step="0.01">
+                <button onclick="addExpense()">− Добавить расход</button>
+                <h3 style="margin-top:30px">История расходов</h3>
+                <table id="expenseTable"><tr><th>Описание</th><th>Сумма</th><th></th></tr></table>
+            </div>
+        </div>
+
+        <!-- Цель -->
+        <div id="goal" class="page">
+            <div class="card">
+                <h2>Финансовая цель</h2>
+                <input type="text" id="goalName" placeholder="Название цели (Макбук, отпуск...)">
+                <input type="number" id="goalAmount" placeholder="Сколько нужно накопить" step="0.01">
+                <button onclick="setGoal()">Установить цель</button>
+                <div id="currentGoal" style="margin-top:30px;font-size:1.3rem;"></div>
+            </div>
+        </div>
+
+        <!-- Статистика -->
+        <div id="stats" class="page">
+            <div class="card">
+                <h2>Статистика</h2>
+                <p id="statsInfo">Загрузка...</p>
+            </div>
+        </div>
+
+    </div>
+
+  <div class="music-btn" onclick="toggleMusic()">Музика</div>
+<audio id="xmasMusic" loop preload="auto">
+    <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

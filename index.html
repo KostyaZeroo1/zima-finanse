@@ -2,554 +2,315 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Зима Финансы 2025 — Новогодний трекер</title>
+    <title>Мои Финансы • Зима 2025</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        /* ==================== Основные стили ==================== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a1628;
-            color: #e0f7fa;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 20% 20%, #1b263b 0%, #0a1628 80%);
-            z-index: -2;
+        :root { --accent: #00ffff; }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Segoe UI',sans-serif;
+            background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+            color:#e0f7fa;
+            min-height:100vh;
+            overflow-x:hidden;
+            position:relative;
         }
 
-        /* ==================== Гирлянда ==================== */
-        #garland {
+        /* === НАСТОЯЩАЯ НОВОГОДНЯЯ ГИРЛЯНДА === */
+        .garland-container {
             position: fixed;
             top: 0; left: 0;
             width: 100%;
-            height: 100px;
+            height: 140px;
             pointer-events: none;
-            z-index: 1000;
+            z-index: 998;
+            overflow: hidden;
         }
-        .light {
+        .garland-wire {
             position: absolute;
-            top: 35px;
-            width: 28px;
-            height: 40px;
-            background: radial-gradient(circle at 35% 25%, #ffffff, transparent);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: 0 0 30px 8px currentColor;
-            animation: glow 2s infinite ease-in-out;
+            top: 65px;
+            left: -5%;
+            width: 110%;
+            height: 5px;
+            background: linear-gradient(to right, transparent, #0f330f 15%, #0f330f 85%, transparent);
+            border-radius: 3px;
+            box-shadow: 0 0 15px rgba(0,255,0,0.4);
+            transform: rotate(1.5deg);
         }
-        .light:nth-child(odd) { animation-duration: 2.3s; }
-        .light:nth-child(3n) { animation-duration: 1.7s; }
-        .light:nth-child(4n) { animation-duration: 2.8s; }
-        @keyframes glow {
-            0%, 100% { opacity: 0.6; transform: scale(0.9); }
-            50%      { opacity: 1;   transform: scale(1.15); }
-        }
-
-        /* ==================== Снег ==================== */
-        .snow {
-            position: fixed;
+        .garland-lights {
+            position: absolute;
             top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 99;
+            width: 100%;
+            height: 140px;
         }
-
-        /* ==================== Шапка и навигация ==================== */
-        header {
-            text-align: center;
-            padding: 110px 20px 40px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
-        }
-        h1 {
-            font-size: 4.2rem;
-            background: linear-gradient(90deg, #00ffff, #00ff80, #ffff00, #ff00ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
-        }
-        nav {
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(12px);
-            padding: 18px;
-            position: sticky;
-            top: 0;
-            z-index: 900;
-            text-align: center;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            padding: 12px 22px;
-            border-radius: 16px;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        nav a:hover {
-            background: #00ffff;
-            color: #000;
-            transform: scale(1.1);
-        }
-
-        /* ==================== Выбор валюты ==================== */
-        .currency-bar {
-            text-align: center;
-            padding: 25px;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-        }
-        .currency-btn {
-            background: none;
-            border: none;
-            font-size: 2.8rem;
-            margin: 0 20px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .currency-btn:hover { transform: scale(1.4); }
-
-        /* ==================== Контейнер и карточки ==================== */
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
-        .card {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(16px);
-            border-radius: 28px;
-            padding: 35px;
-            margin: 30px 0;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-            border: 2px solid rgba(0,255,255,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .card::before {
-            content: '';
+        .garland-light {
             position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent 40%, rgba(0,255,255,0.15) 50%, transparent 60%);
-            animation: shine 6s infinite;
-            pointer-events: none;
-        }
-        @keyframes shine { 0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); } 100% { transform: translateX(100%) translateY(100%) rotate(30deg); } }
-
-        h2 {
-            text-align: center;
-            font-size: 2.4rem;
-            margin-bottom: 30px;
-            color: #00ffff;
-            text-shadow: 0 0 20px #00ffff;
-        }
-
-        input {
-            width: 100%;
-            padding: 18px;
-            margin: 12px 0;
-            border: none;
-            border-radius: 16px;
-            background: rgba(255,255,255,0.18);
-            color: white;
-            font-size: 1.1rem;
-        }
-        input::placeholder { color: #aaa; }
-
-        button {
-            width: 100%;
-            padding: 18px;
-            margin: 12px 0;
-            border: none;
-            border-radius: 16px;
-            background: linear-gradient(90deg, #00ff80, #00ffff);
-            color: #000;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(0,255,255,0.5);
-        }
-
-        /* Прогресс-бар */
-        .progress-container {
-            height: 60px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 30px;
-            overflow: hidden;
-            margin: 30px 0;
-        }
-        .progress {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #00ff80, #00ffff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #000;
-            transition: width 1.2s ease;
-        }
-
-        /* Таблицы */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 16px; text-align: left; border-bottom: 1px solid rgba(0,255,255,0.3); }
-        th { background: rgba(0,255,255,0.2); color: #00ffff; }
-        .delete-btn {
-            background: #ff2d55;
-            color: white;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            float: right;
-        }
-
-        /* Кнопка музыки */
-        .music-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 80px;
-            height: 80px;
+            width: 20px; height: 20px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            box-shadow: 0 0 40px rgba(255,0,255,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            cursor: pointer;
-            z-index: 9999;
-            animation: pulse 2s infinite;
+            background: radial-gradient(circle at 35% 35%, #ffffaa, #ffaa00 60%, #cc4400);
+            box-shadow: 0 0 25px 8px #ffaa00, 0 0 50px 15px #ff6600, inset 0 0 12px rgba(255,255,150,0.9);
+            animation: glow 2.5s infinite ease-in-out;
+            transform: translateX(-50%);
         }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .garland-light:nth-child(4n+1){background:radial-gradient(circle at 35% 35%,#aaffff,#0088ff 60%,#0044cc);box-shadow:0 0 25px 8px #0088ff,0 0 50px 15px #00ccff;}
+        .garland-light:nth-child(4n+2){background:radial-gradient(circle at 35% 35%,#ffaaff,#ff0088 60%,#cc0044);box-shadow:0 0 25px 8px #ff0088,0 0 50px 15px #ff66aa;}
+        .garland-light:nth-child(4n+3){background:radial-gradient(circle at 35% 35%,#aaffaa,#00ff00 60%,#008800);box-shadow:0 0 25px 8px #00ff00,0 0 50px 15px #88ff88;}
+        @keyframes glow{
+            0%,100%{opacity:0.6;transform:translateX(-50%) scale(1) translateY(0);}
+            50%    {opacity:1;  transform:translateX(-50%) scale(1.2) translateY(-5px);}
+        }
 
-        /* Страницы */
-        .page { display: none; }
-        #home { display: block; }
+        /* Снег */
+        .snow{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10;}
+
+        header{text-align:center;padding:100px 20px 20px;background:rgba(0,0,0,0.4);position:relative;z-index:20;}
+        h1{font-size:3.8rem;text-shadow:0 0 30px #00ffff,0 0 60px #00ffff;}
+        nav{background:rgba(0,0,0,0.5);padding:15px 0;position:sticky;top:0;z-index:30;}
+        nav a{color:#fff;text-decoration:none;margin:0 20px;padding:10px 20px;border-radius:12px;transition:0.3s;}
+        nav a:hover{background:var(--accent);color:#000;}
+
+        .container{max-width:1100px;margin:40px auto;padding:0 20px;}
+        .card{background:rgba(255,255,255,0.12);backdrop-filter:blur(12px);border-radius:20px;padding:30px;margin-bottom:30px;box-shadow:0 15px 35px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.2);}
+        input,button,select{padding:14px;margin:8px 0;border:none;border-radius:12px;font-size:1rem;width:100%;}
+        input,select{background:rgba(255,255,255,0.2);color:white;}
+        button{background:var(--accent);color:#000;font-weight:bold;cursor:pointer;transition:0.3s;}
+        button:hover{background:#00bfff;transform:scale(1.05);}
+        .progress-container{width:100%;background:rgba(0,0,0,0.4);height:45px;border-radius:25px;overflow:hidden;margin:25px 0;}
+        .progress{height:100%;background:linear-gradient(90deg,#00ff00,#00ffff);transition:width 1s ease;display:flex;align-items:center;justify-content:center;color:#000;font-weight:bold;font-size:1.4rem;}
+        table{width:100%;border-collapse:collapse;margin-top:20px;}
+        th,td{padding:15px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.2);}
+        th{background:rgba(0,255,255,0.2);}
+        .delete-btn{background:#ff0040;color:white;padding:8px 14px;border-radius:8px;cursor:pointer;}
+
+        .currency-btn{padding:12px 20px;margin:0 8px;border-radius:12px;background:rgba(255,255,255,0.15);border:2px solid transparent;cursor:pointer;transition:0.3s;}
+        .currency-btn.active{border-color:var(--accent);background:rgba(0,255,255,0.2);transform:scale(1.1);}
+        .music-btn{position:fixed;bottom:20px;right:20px;background:rgba(0,255,255,0.3);border-radius:50%;width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;z-index:1000;box-shadow:0 0 20px #0ff;}
+        .page{display:none;}
+        #home{display:block;}
     </style>
 </head>
 <body>
 
-    <!-- Гирлянда -->
-    <div id="garland"></div>
+<!-- КРАСИВАЯ ГИРЛЯНДА -->
+<div class="garland-container">
+    <div class="garland-wire"></div>
+    <div class="garland-lights" id="garlandLights"></div>
+</div>
 
-    <!-- Снег -->
-    <div class="snow"></div>
+<!-- Снег -->
+<div class="snow"></div>
 
-    <!-- Шапка -->
-    <header>
-        <h1>Зима Финансы 2025</h1>
-        <p>Новогодний трекер с гирляндой и снегом</p>
-    </header>
+<header>
+    <h1>Мои Финансы 2025</h1>
+    <p>Зимний трекер с реальными курсами ЦБ</p>
+</header>
 
-    <!-- Навигация -->
-    <nav>
-        <a onclick="showPage('home')">Главная</a>
-        <a onclick="showPage('income')">Доходы</a>
-        <a onclick="showPage('expense')">Расходы</a>
-        <a onclick="showPage('goal')">Цель</a>
-        <a onclick="showPage('stats')">Статистика</a>
-    </nav>
+<nav>
+    <a href="#home" onclick="showPage('home')">Главная</a>
+    <a href="#income" onclick="showPage('income')">Доходы</a>
+    <a href="#expense" onclick="showPage('expense')">Расходы</a>
+    <a href="#goal" onclick="showPage('goal')">Цель</a>
+    <a href="#stats" onclick="showPage('stats')">Статистика</a>
+</nav>
 
-    <!-- Выбор валюты -->
-    <div class="currency-bar">
-        Валюта:
-        <button class="currency-btn" onclick="changeCurrency('₽')">RUB</button>
-        <button class="currency-btn" onclick="changeCurrency('$')">USD</button>
-        <button class="currency-btn" onclick="changeCurrency('€')">EUR</button>
-        <button class="currency-btn" onclick="changeCurrency('£')">GBP</button>
+<!-- Выбор валюты -->
+<div class="container">
+    <div class="card" style="text-align:center;">
+        <h3>Основная валюта (автопересчёт)</h3>
+        <p>Все суммы пересчитываются по курсу ЦБ при смене</p>
+        <div style="margin:20px 0;">
+            <button class="currency-btn active" data-cur="RUB">RUB</button>
+            <button class="currency-btn" data-cur="USD">$ USD</button>
+            <button class="currency-btn" data-cur="EUR">EUR</button>
+        </div>
+        <small id="rate-info">Загрузка курсов...</small>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Главная -->
+    <div id="home" class="page">
+        <div class="card">
+            <h2>Добро пожаловать!</h2>
+            <div class="goal" id="mainGoal">Цель не установлена</div>
+            <div class="progress-container"><div class="progress" id="mainProgress">0%</div></div>
+            <p style="text-align:center;font-size:1.8rem;margin:30px 0;">
+                Баланс: <b id="balance">0</b> <span id="currencySymbol">₽</span><br><br>
+                Отложено: <b id="saved">0</b> <span id="currencySymbol2">₽</span>
+            </p>
+        </div>
     </div>
 
-    <div class="container">
-
-        <!-- Главная -->
-        <div id="home" class="page">
-            <div class="card">
-                <h2>Твой баланс</h2>
-                <p style="font-size:3.5rem;text-align:center;margin:40px 0">
-                    <b id="balance">0</b> <span class="currency" style="font-size:2.8rem">RUB</span>
-                </p>
-                <p style="font-size:2rem;text-align:center;margin:20px 0">
-                    Отложено: <b id="saved">0</b> <span class="currency">RUB</span>
-                </p>
-                <div class="progress-container">
-                    <div class="progress" id="mainProgress">0%</div>
-                </div>
-            </div>
+    <!-- Доходы -->
+    <div id="income" class="page">
+        <div class="card">
+            <h2>Добавить доход</h2>
+            <input type="text" id="incomeDesc" placeholder="Источник">
+            <input type="number" id="incomeAmount" placeholder="Сумма" step="0.01">
+            <button onclick="addIncome()">+ Добавить</button>
+            <h3 style="margin-top:30px">История</h3>
+            <table id="incomeTable"><tr><th>Описание</th><th>Сумма</th><th></th></tr></table>
         </div>
-
-        <!-- Доходы -->
-        <div id="income" class="page">
-            <div class="card">
-                <h2>Добавить доход</h2>
-                <input type="text" id="incomeDesc" placeholder="Откуда деньги? (зарплата, подарок...)">
-                <input type="number" id="incomeAmount" placeholder="Сумма">
-                <button onclick="addIncome()">Добавить доход</button>
-                <table id="incomeTable">
-                    <tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Расходы -->
-        <div id="expense" class="page">
-            <div class="card">
-                <h2>Добавить расход</h2>
-                <input type="text" id="expenseDesc" placeholder="На что потратили?">
-                <input type="number" id="expenseAmount" placeholder="Сумма">
-                <button onclick="addExpense()">Добавить расход</button>
-                <table id="expenseTable">
-                    <tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Цель -->
-        <div id="goal" class="page">
-            <div class="card">
-                <h2>Финансовая цель</h2>
-                <input type="text" id="goalName" placeholder="На что копишь? (айфон, отпуск, машина...)">
-                <input type="number" id="goalAmount" placeholder="Сколько нужно собрать">
-                <button onclick="setGoal()">Установить цель</button>
-
-                <h3 id="goalText" style="margin:40px 0;text-align:center;font-size:1.8rem">Цель не установлена</h3>
-                <div class="progress-container">
-                    <div class="progress" id="goalProgress">0%</div>
-                </div>
-
-                <button onclick="addToSavings()">Отложить с баланса</button>
-                <input type="number" id="saveAmount" placeholder="Сколько отложить?">
-            </div>
-        </div>
-
-        <!-- Статистика -->
-        <div id="stats" class="page">
-            <div class="card">
-                <h2>Статистика за всё время</h2>
-                <p style="font-size:1.6rem;margin:20px 0">
-                    Всего доходов: <b id="totalIncome">0</b> <span class="currency">RUB</span><br><br>
-                    Всего расходов: <b id="totalExpense">0</b> <span class="currency">RUB</span><br><br>
-                    Чистый баланс: <b id="netBalance">0</b> <span class="currency">RUB</span>
-                </p>
-            </div>
-        </div>
-
     </div>
 
-    <!-- Кнопка музыки -->
-    <div class="music-btn" onclick="toggleMusic()">Play Music</div>
-    <audio id="music" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/11/28/audio_5c7d7e9a1e.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Расходы -->
+    <div id="expense" class="page">
+        <div class="card">
+            <h2>Добавить расход</h2>
+            <input type="text" id="expenseDesc" placeholder="На что">
+            <input type="number" id="expenseAmount" placeholder="Сумма" step="0.01">
+            <button onclick="addExpense()">− Добавить</button>
+            <h3 style="margin-top:30px">История</h3>
+            <table id="expenseTable"><tr><th>Описание</th><th>Сумма</th><th></th></tr></table>
+        </div>
+    </div>
 
-    <script>
-        // === Гирлянда ===
-        const colors = ['#ff0040', '#00ff00', '#0080ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8000'];
-        for (let i = 0; i < 80; i++) {
-            const light = document.createElement('div');
-            light.className = 'light';
-            light.style.left = (i / 80 * 100) + '%';
-            light.style.color = colors[i % colors.length];
-            light.style.animationDelay = (i * 0.08) + 's';
-            document.getElementById('garland').appendChild(light);
-        }
+    <!-- Цель -->
+    <div id="goal" class="page">
+        <div class="card">
+            <h2>Финансовая цель</h2>
+            <input type="text" id="goalName" placeholder="Название цели">
+            <input type="number" id="goalAmount" placeholder="Сколько нужно" step="0.01">
+            <button onclick="setGoal()">Установить</button>
+            <div id="currentGoal" style="margin-top:30px;font-size:1.3rem;"></div>
+        </div>
+    </div>
 
-        // === Снег ===
-        setInterval(() => {
-            const snowflake = document.createElement('div');
-            snowflake.style.position = 'absolute';
-            snowflake.style.width = snowflake.style.height = Math.random() * 6 + 4 + 'px';
-            snowflake.style.background = 'white';
-            snowflake.style.borderRadius = '50%';
-            snowflake.style.opacity = Math.random() * 0.8 + 0.2;
-            snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.top = '-10px';
-            snowflake.style.animation = `fall ${Math.random() * 10 + 10}s linear forwards`;
-            document.querySelector('.snow').appendChild(snowflake);
-            setTimeout(() => snowflake.remove(), 20000);
-        }, 90);
-        const style = document.createElement('style');
-        style.innerHTML = `@keyframes fall { to { transform: translateY(110vh) rotate(1080deg); } }`;
-        document.head.appendChild(style);
+    <!-- Статистика -->
+    <div id="stats" class="page">
+        <div class="card">
+            <h2>Статистика</h2>
+            <div id="statsInfo">Загрузка...</div>
+        </div>
+    </div>
+</div>
 
-        // === Музыка ===
-        function toggleMusic() {
-            const music = document.getElementById('music');
-            if (music.paused) {
-                music.play();
-                document.querySelector('.music-btn').textContent = 'Stop Music';
-            } else {
-                music.pause();
-                document.querySelector('.music-btn').textContent = 'Play Music';
-            }
-        }
+<!-- Музыка -->
+<div class="music-btn" onclick="toggleMusic()">Play</div>
+<audio id="xmasMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/11/28/audio_5c7d7e9a1e.mp3" type="audio/mpeg">
+</audio>
 
-        // === Валюта и форматирование ===
-        let currency = localStorage.getItem('currency') || 'RUB';
-        document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
+<script>
+// === Гирлянда ===
+function createRealGarland() {
+    const container = document.getElementById('garlandLights');
+    container.innerHTML = '';
+    const count = Math.floor(window.innerWidth / 70) + 12;
+    const baseY = 65;
+    const sag = 18;
+    for (let i = 0; i < count; i++) {
+        const light = document.createElement('div');
+        light.className = 'garland-light';
+        const x = (i / (count - 1)) * 100;
+        const yOffset = Math.sin((i / count) * Math.PI) * sag;
+        light.style.left = x + '%';
+        light.style.top = (baseY + yOffset) + 'px';
+        light.style.animationDelay = Math.random() * 2 + 's';
+        container.appendChild(light);
+    }
+}
+createRealGarland();
+window.addEventListener('resize', createRealGarland);
 
-        function changeCurrency(sym) {
-            currency = sym;
-            localStorage.setItem('currency', sym);
-            document.querySelectorAll('.currency').forEach(el => el.textContent = sym);
-            updateDisplay();
-        }
+// === Снег ===
+setInterval(()=>{const s=document.createElement('div');s.style.cssText=`position:absolute;width:${Math.random()*4+2}px;height:${s.style.width};background:white;border-radius:50%;opacity:${Math.random()*0.5+0.5};left:${Math.random()*100}vw;top:-10px;animation:fall ${Math.random()*10+10}s linear forwards`;document.querySelector('.snow').appendChild(s);setTimeout(()=>s.remove(),20000);},100);
+document.head.appendChild(Object.assign(document.createElement('style'),{innerHTML:'@keyframes fall{to{transform:translateY(110vh) rotate(720deg);}}'}));
 
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-        }
+// === Музыка ===
+let music=document.getElementById('xmasMusic');
+function toggleMusic(){
+    if(music.paused){music.play();document.querySelector('.music-btn').innerHTML='Stop';}
+    else{music.pause();document.querySelector('.music-btn').innerHTML='Play';}
+}
 
-        // === Данные ===
-        let data = {
-            incomes: [],
-            expenses: [],
-            goal: { name: "", amount: 0 },
-            saved: 0
-        };
+// === Курсы + Валюта ===
+let displayCurrency = localStorage.getItem("displayCurrency") || "RUB";
+let rates = {RUB:1, USD:95, EUR:105};
 
-        if (localStorage.getItem('zimaFinanceData')) {
-            data = JSON.parse(localStorage.getItem('zimaFinanceData'));
-        }
+async function loadRates(){
+    try{
+        const r=await fetch("https://www.cbr-xml-daily.ru/daily_json.js");
+        const d=await r.json();
+        rates.USD=d.Valute.USD.Value;
+        rates.EUR=d.Valute.EUR.Value;
+        rates.RUB=1;
+        document.getElementById("rate-info").innerHTML=`Курс ЦБ: 1$ = ${rates.USD.toFixed(2)}₽ • 1€ = ${rates.EUR.toFixed(2)}₽ • ${new Date().toLocaleDateString("ru")}`;
+    }catch{ document.getElementById("rate-info").textContent="Офлайн-режим (курсы приблизительные)"; }
+    renderAll();
+}
+loadRates(); setInterval(loadRates,12*60*60*1000);
 
-        function saveData() {
-            localStorage.setItem('zimaFinanceData', JSON.stringify(data));
-            updateDisplay();
-        }
+function setDisplayCurrency(c){
+    displayCurrency=c;
+    localStorage.setItem("displayCurrency",c);
+    document.querySelectorAll(".currency-btn").forEach(b=>b.classList.toggle("active",b.dataset.cur===c));
+    renderAll();
+}
+document.querySelectorAll(".currency-btn").forEach(b=>b.onclick=()=>setDisplayCurrency(b.dataset.cur));
+document.querySelector(`[data-cur="${displayCurrency}"]`).classList.add("active");
 
-        function updateDisplay() {
-            const totalIncome = data.incomes.reduce((s, i) => s + i.amount, 0);
-            const totalExpense = data.expenses.reduce((s, e) => s + e.amount, 0);
-            const balance = totalIncome - totalExpense;
-            const progress = data.goal.amount > 0 ? (data.saved / data.goal.amount) * 100 : 0;
+function getSymbol(){return displayCurrency==="RUB"?"₽":displayCurrency==="USD"?"$":"€";}
+function toRUB(a){return Math.round(a * rates[displayCurrency] * 100)/100;}
+function fromRUB(a){return Math.round((a / rates[displayCurrency]) * 100)/100;}
+function fmt(n){return Math.abs(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g," ");}
 
-            document.getElementById('balance').textContent = formatNumber(balance);
-            document.getElementById('saved').textContent = formatNumber(data.saved);
-            document.getElementById('totalIncome').textContent = formatNumber(totalIncome);
-            document.getElementById('totalExpense').textContent = formatNumber(totalExpense);
-            document.getElementById('netBalance').textContent = formatNumber(balance);
+// === Финансы (хранится в RUB) ===
+let rawIncomes = JSON.parse(localStorage.getItem("ri")||"[]");
+let rawExpenses = JSON.parse(localStorage.getItem("re")||"[]");
+let rawGoal = JSON.parse(localStorage.getItem("rg")||null);
 
-            document.getElementById('mainProgress').style.width = progress + '%';
-            document.getElementById('mainProgress').textContent = progress.toFixed(0) + '%';
-            document.getElementById('goalProgress').style.width = progress + '%';
-            document.getElementById('goalProgress').textContent = progress.toFixed(0) + '%';
+function save(){localStorage.setItem("ri",JSON.stringify(rawIncomes));localStorage.setItem("re",JSON.stringify(rawExpenses));localStorage.setItem("rg",JSON.stringify(rawGoal));}
 
-            document.getElementById('goalText').textContent = data.goal.name
-                ? `Коплю на: ${data.goal.name} — ${formatNumber(data.goal.amount)} ${currency}`
-                : 'Цель не установлена';
+function calc(){
+    const inc = rawIncomes.reduce((s,i)=>s+i.a,0);
+    const exp = rawExpenses.reduce((s,e)=>s+e.a,0);
+    const bal = inc - exp;
+    const prog = rawGoal ? Math.min(100, bal / rawGoal.a * 100) : 0;
+    return {bal, prog, inc, exp, goalAmt: rawGoal?rawGoal.a:0};
+}
 
-            // Таблицы
-            ['incomeTable', 'expenseTable'].forEach((id, idx) => {
-                const table = document.getElementById(id);
-                table.innerHTML = '<tr><th>Дата</th><th>Описание</th><th>Сумма</th><th></th></tr>';
-                const items = idx === 0 ? data.incomes : data.expenses;
-                items.slice().reverse().forEach((item, i) => {
-                    const realIndex = items.length - 1 - i;
-                    const row = table.insertRow();
-                    row.innerHTML = `
-                        <td>${new Date(item.date).toLocaleDateString()}</td>
-                        <td>${item.desc}</td>
-                        <td style="color:${idx===0?'#0f0':'#f66'}">${idx===0?'+':'-'}${formatNumber(item.amount)}</td>
-                        <td><button class="delete-btn" onclick="deleteItem(${idx===0}, ${realIndex})">×</button></td>
-                    `;
-                });
-            });
-        }
+function renderAll(){
+    const c = calc();
+    const sym = getSymbol();
+    document.getElementById("balance").textContent = fmt(fromRUB(c.bal));
+    document.getElementById("saved").textContent = fmt(fromRUB(rawGoal?c.bal:0));
+    document.getElementById("currencySymbol").textContent = sym;
+    document.getElementById("currencySymbol2").textContent = sym;
+    document.getElementById("mainProgress").style.width = c.prog + "%";
+    document.getElementById("mainProgress").textContent = c.prog.toFixed(1)+"%";
 
-        function addIncome() {
-            const desc = document.getElementById('incomeDesc').value.trim();
-            const amount = parseFloat(document.getElementById('incomeAmount').value);
-            if (!desc || isNaN(amount) || amount <= 0) return alert('Проверьте данные');
-            data.incomes.push({ desc, amount, date: new Date() });
-            document.getElementById('incomeDesc').value = '';
-            document.getElementById('incomeAmount').value = '';
-            saveData();
-        }
+    if(rawGoal){
+        document.getElementById("mainGoal").textContent = `${rawGoal.n} — нужно ${fmt(fromRUB(rawGoal.a))} ${sym}`;
+        document.getElementById("currentGoal").innerHTML = `<strong>${rawGoal.n}</strong><br>Нужно: ${fmt(fromRUB(rawGoal.a))} ${sym}<br>Накоплено: ${fmt(fromRUB(c.bal))} ${sym} (${c.prog.toFixed(1)}%)`;
+    }else{
+        document.getElementById("mainGoal").textContent="Цель не установлена";
+        document.getElementById("currentGoal").innerHTML="Установите цель на вкладке «Цель»";
+    }
 
-        function addExpense() {
-            const desc = document.getElementById('expenseDesc').value.trim();
-            const amount = parseFloat(document.getElementById('expenseAmount').value);
-            if (!desc || isNaN(amount) || amount <= 0) return alert('Проверьте данные');
-            data.expenses.push({ desc, amount, date: new Date() });
-            document.getElementById('expenseDesc').value = '';
-            document.getElementById('expenseAmount').value = '';
-            saveData();
-        }
+    // Таблицы
+    const it = document.getElementById("incomeTable"); it.innerHTML="<tr><th>Описание</th><th>Сумма</th><th></th></tr>";
+    rawIncomes.forEach((i,idx)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${i.d}</td><td>${fmt(fromRUB(i.a))} ${sym}</td><td><button class="delete-btn" onclick="delInc(${idx})">×</button></td>`;it.appendChild(tr);});
+    const et = document.getElementById("expenseTable"); et.innerHTML="<tr><th>Описание</th><th>Сумма</th><th></th></tr>";
+    rawExpenses.forEach((e,idx)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${e.d}</td><td>${fmt(fromRUB(e.a))} ${sym}</td><td><button class="delete-btn" onclick="delExp(${idx})">×</button></td>`;et.appendChild(tr);});
 
-        function setGoal() {
-            const name = document.getElementById('goalName').value.trim();
-            const amount = parseFloat(document.getElementById('goalAmount').value);
-            if (!name || isNaN(amount) || amount <= 0) return alert('Укажите корректную цель');
-            data.goal = { name, amount };
-            document.getElementById('goalName').value = '';
-            document.getElementById('goalAmount').value = '';
-            saveData();
-        }
+    document.getElementById("statsInfo").innerHTML = `
+        Доходы: ${fmt(fromRUB(c.inc))} ${sym}<br>
+        Расходы: ${fmt(fromRUB(c.exp))} ${sym}<br>
+        Баланс: ${fmt(fromRUB(c.bal))} ${sym}<br>
+        <small>Всё хранится в RUB — пересчёт точный</small>
+    `;
+}
 
-        function addToSavings() {
-            const amount = parseFloat(document.getElementById('saveAmount').value);
-            if (isNaN(amount) || amount <= 0) return alert('Укажите сумму');
-            const balance = data.incomes.reduce((s,i)=>s+i.amount,0) - data.expenses.reduce((s,e)=>s+e.amount,0);
-            if (balance < amount) return alert('Недостаточно денег на балансе!');
-            data.saved += amount;
-            document.getElementById('saveAmount').value = '';
-            saveData();
-        }
+// Действия
+function addIncome(){const d=document.getElementById("incomeDesc").value.trim();const a=parseFloat(document.getElementById("incomeAmount").value);if(d&&a>0){rawIncomes.push({d,a:toRUB(a)});save();renderAll();document.getElementById("incomeDesc").value="";document.getElementById("incomeAmount").value="";}}
+function addExpense(){const d=document.getElementById("expenseDesc").value.trim();const a=parseFloat(document.getElementById("expenseAmount").value);if(d&&a>0){rawExpenses.push({d,a:toRUB(a)});save();renderAll();document.getElementById("expenseDesc").value="";document.getElementById("expenseAmount").value="";}}
+function delInc(i){rawIncomes.splice(i,1);save();renderAll();}
+function delExp(i){rawExpenses.splice(i,1);save();renderAll();}
+function setGoal(){const n=document.getElementById("goalName").value.trim();const a=parseFloat(document.getElementById("goalAmount").value);if(n&&a>0){rawGoal={n,a:toRUB(a)};save();renderAll();}}
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.style.display="none");document.getElementById(id).style.display="block";if(id==="stats")renderAll();}
 
-        function deleteItem(isIncome, index) {
-            if (confirm('Удалить запись?')) {
-                if (isIncome) data.incomes.splice(index, 1);
-                else data.expenses.splice(index, 1);
-                saveData();
-            }
-        }
-
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-            document.getElementById(pageId).style.display = 'block';
-        }
-
-        // Запуск
-        updateDisplay();
-        showPage('home');
-    </script>
-    <script>
-// Логгер посетителей — рабочая версия
-fetch("https://api.ipify.org?format=json")
-  .then(r => r.json())
-  .then(data => fetch(`https://ip-api.com/json/${data.ip}?lang=ru`))
-  .then(r => r.json())
-  .then(geo => {
-
-    const log = {
-      "Время": new Date().toLocaleString("ru-RU"),
-      "IP": geo.query,
-      "Страна": geo.country || "Неизвестно",
-      "Город": geo.city || "",
-      "Провайдер": geo.isp || "",
-      "Устройство": /mobile|android|iphone|ipad/i.test(navigator.userAgent) ? "Мобильное" : "ПК",
-      "Браузер": navigator.userAgent.substring(0, 200),
-      "Откуда пришёл": document.referrer || "прямой заход",
-      "Страница": location.pathname + location.search
-    };
-
-    // ← ВСТАВЬ СВОЙ WEBHOOK SITE URL !!!
-    fetch("https://webhook.site/b5ea1039-f697-499b-8113-c12f790ef09d", {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(log)
-    });
-
-  })
-  .catch(err => console.log("Logger error:", err));
+renderAll();
 </script>
 </body>
 </html>
